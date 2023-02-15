@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/layout :: head">
+<meta charset="utf-8">
+<title>Sisteme Line Code</title>
+</head>
+
+<body>
+    <!-- Navigation -->
+	<div th:include="index/template_usuario.html::header" th:if="${sesion==null}"></div>
+
+    <div th:include="index/template_usuario.html::header-user" th:unless="${sesion==null}"> </div>
+
+
+	<!-- Page Content -->
+	<div class="container">
+
+		<!-- Jumbotron Header -->
+		<header class="jumbotron my-4">
+			<h1 class="display-3">Bienvenido a Line Code</h1>
+			<p class="lead">Tu tienda de productos en Línea</p>
+		</header>
+
+		<!-- Page Features -->
+		<div class="row text-center">
+
+			<div class="col-lg-3 col-md-6 mb-4" th:each="producto: ${productos}">
+				<div class="card h-100">
+					<img class="card-img-top"
+						th:src="@{/images/{img} (img=${producto.imagen})} " alt="">
+					<div class="card-body">
+						<p class="card-text" th:text="${producto.nombre}"></p>
+					</div>
+					<div class="card-footer">
+						<a th:href="@{/productohome/{id}  (id=${producto.id})  }" class="btn btn-success">Ver
+							producto</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- /.row -->
+
+	</div>
+	<!-- /.container -->
+
+	<!-- Footer Crear Carpeta -->
+	<div th:include="index/template_usuario.html::footer">
+	</div>
+
+
+</body>
+
+</html>
+

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+<meta charset="utf-8">
+</head>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+	
+	<div class="container py-4">
+	   <div class="card bg-light">
+	       <div class="card-header" th:text="${titulo}">
+	       </div>
+	       <div class="card-body">
+	          <ul class="list-group">
+	             <li class="list-group-item active" th:text="${producto.nombre}"></li>
+	             <li class="list-group-item" th:text="${producto.cantidad}"></li>
+	             <li class="list-group-item" th:text="${producto.precio}"></li>
+	             <li class="list-group-item" th:text="${producto.descripcion}"></li>
+	             
+	          </ul>
+	       </div>
+	   </div>
+	</div>
+	
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

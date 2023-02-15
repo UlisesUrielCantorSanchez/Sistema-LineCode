@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="layout/layout :: head">
+<meta charset="utf-8">
+
+</head>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="py-4 ml-5 mr-5">
+		<div class="card bg-light">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+				<h4 class="card-title">
+					<a th:href="@{/producto/create}" class="btn btn-primary">Agregar Producto</a>
+					<a th:href="@{/producto/exportarPDF}" class="btn btn-secondary">Exportar a PDF</a>
+					<a th:href="@{/producto/exportarExcel}" class="btn btn-success">Exportar a Excel</a>
+				</h4>
+				
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Nombre</th>
+							<th>Cantidad</th>
+							<th>Precio</th>
+							<th>descripcion</th>
+							<th>Detalles</th>
+							<th>Editar</th>
+							<th>Eliminar</th>
+							
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="producto : ${productos}">
+							<td th:text="${producto.id}"></td>
+							<td th:text="${producto.nombre}"></td>
+							<td th:text="${producto.cantidad}"></td>
+							<td th:text="${producto.precio}"></td>
+							<td th:text="${producto.descripcion}"></td>
+							<td>
+								<a class="btn btn-info btn-sm" th:href="@{/producto/listar} + ${producto.id}">Detalles</a>
+							</td>
+							<td>
+								<a class="btn btn-warning btn-sm" th:href="@{/producto/form} + ${producto.id}">Editar</a>
+							</td>
+							<td>
+								<a href="#" onclick="eliminarContacto(this)" class="btn btn-danger">Eliminar</a>
+								<form th:action="@{/eliminar/} + ${producto.id}" method="get"></form>
+							</td>			
+						</tr>
+					</tbody>
+				</table>
+				<nav th:replace="productos/paginador-nav :: paginator"></nav>
+				<!----
+                 -----------------------SOLUCIONAR ESTO---------------------
+                --> 
+			</div>
+		</div>
+	</div>
+
+	<script>
+		function eliminarContacto(elemento){
+			var ok = confirm('¿Estas seguro de eliminar el producto?');
+			
+			if(ok){
+				elemento.nextElementSibling.submit();
+			}
+		}
+		</script>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
