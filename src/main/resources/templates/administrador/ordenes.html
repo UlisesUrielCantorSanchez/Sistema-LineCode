@@ -2,73 +2,61 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<head th:replace="layout/layout :: head">
+
 <meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
 
-<title>Spring eCommerce</title>
-
+<title>Line Code</title>
+<head th:replace="layout/layout :: head"></head>
 </head>
 
 <body>
 
 	<!-- Navigation -->
-	<div th:include="index/template_usuario.html::header" th:if="${sesion==null}">	
-	</div>
-	
-	<div th:include="index/template_usuario.html::header-user" th:unless="${sesion==null}"> </div>
+	<div th:include="administrador/template_admin.html::header"></div>
 
-    <br>
-
-	<!-- Container -->
+	<!-- Page Content -->
 	<div class="container">
+
+
 		<!-- Page Heading/Breadcrumbs -->
 		<h1 class="mt-4 mb-3">
-			Line Code <small>Carrito</small>
+			Spring eCommerce <small>Ordenes</small>
 		</h1>
 
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-			<li class="breadcrumb-item active">Carrito</li>
+			<li class="breadcrumb-item active">Ordenes</li>
 		</ol>
 
 		<!-- Blog Post -->
 		<div class="card mb-4">
 			<div class="card-body">
 				<div class="row">
-					<div class="col-lg-9">
-						
+					<div class="col-lg-12">
 						<table class="table">
 							<thead>
 								<tr>
-									<th scope="col">Producto</th>
-									<th scope="col">Precio</th>
-									<th scope="col">Cantidad</th>
-									<th scope="col">Total</th>
+									<th scope="col">No. de Orden</th>
+									<th scope="col">Fecha</th>
+									<th scope="col">Valor</th>
 									<th scope="col">Acción</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="dorden:${cart}">
-									<td th:text="${dorden.nombre}"></td>
-									<td th:text="${dorden.precio}"></td>
-									<td th:text="${dorden.cantidad}"></td>
-									<td th:text="${dorden.total}"></td>
-									<td><a th:href="@{/delete/cart/{id}   (id=${dorden.producto.id}) }" class="btn btn-danger">Quitar</a></td>
+								<tr th:each="orden:${ordenes}">
+									<td th:text="${orden.numero}"></td>
+									<td th:text="${orden.fechaCreacion}"></td>
+									<td th:text="${orden.total}"></td>
+									<td><a th:href="@{/administrador/detalle/{id} (id=${orden.id}) }" class="btn btn-success">Ver
+											Detalle</a></td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
-
-					<div class="col-lg-3">
-						<h2 class="card-title">SUBTOTAL</h2>
-
-						<ul class="list-group">
-							<li class="list-group-item"><h5 th:text="${orden.total}"></h5></li>
-							<a th:href="@{/productohome/order}" class="btn btn-dark">Ver Orden</a>
-						</ul>
-					</div>
-
-
 				</div>
 			</div>
 		</div>
@@ -76,12 +64,15 @@
 	<!-- /.container -->
 
 	<!-- Footer -->
-	<div th:include="index/template_usuario.html::footer"></div>
+	<div th:include="administrador/template_admin.html::footer"></div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+
+
 </body>
 
 </html>
+

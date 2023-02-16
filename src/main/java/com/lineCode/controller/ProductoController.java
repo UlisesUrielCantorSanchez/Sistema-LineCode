@@ -30,6 +30,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.lineCode.model.Producto;
 import com.lineCode.model.Usuario;
 import com.lineCode.service.IProductoService;
+import com.lineCode.service.IUsuarioService;
 import com.lineCode.service.util.UploadFileService;
 import com.lineCode.util.pagination.PageRender;
 import com.lineCode.util.reports.ProductoExporterExel;
@@ -41,6 +42,9 @@ public class ProductoController {
 
 	@Autowired
 	private IProductoService productoService;
+	
+	@Autowired
+	private IUsuarioService usuarioService;
 
 	@Autowired
 	private UploadFileService upload;
@@ -85,7 +89,7 @@ public class ProductoController {
 			return "productos/from";
 		}
 
-		Usuario u = new Usuario(1, "", "", "", "", "", "", "");
+		Usuario u = usuarioService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
 		producto.setUsuario(u);	
 		
 		//imagen
@@ -97,7 +101,7 @@ public class ProductoController {
 		}
 		
 		productoService.save(producto);
-		return "redirect:/productos";
+		return "redirect:/producto/listar";
 	}
 
 	@GetMapping("/producto/edit/{id}")
@@ -108,10 +112,10 @@ public class ProductoController {
 		
 		model.addAttribute("producto", producto);
 		
-		return "productos/form";
+		return "productos/editar";
 	}
 	
-	@PostMapping("/update")
+	@PostMapping("/producto/update")
 	public String update(Producto producto, @RequestParam("img") MultipartFile file ) throws IOException {
 		Producto p= new Producto();
 		p=productoService.get(producto.getId()).get();
@@ -129,7 +133,7 @@ public class ProductoController {
 		}
 		producto.setUsuario(p.getUsuario());
 		productoService.update(producto);		
-		return "redirect:/productos/listar";
+		return "redirect:/producto/listar";
 	}
 	
 	
@@ -147,7 +151,7 @@ public class ProductoController {
 			productoService.delete(id);
 			flash.addFlashAttribute("success", "Empleado eliminado con exito");
 		}
-		return "redirect:/listar";
+		return "redirect:/producto/listar";
 	}
 	
 	@GetMapping("/producto/exportarPDF")

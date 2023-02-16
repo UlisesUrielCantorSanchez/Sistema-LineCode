@@ -41,18 +41,19 @@
 							<td th:text="${producto.precio}"></td>
 							<td th:text="${producto.descripcion}"></td>
 							<td>
-								<a class="btn btn-info btn-sm" th:href="@{/producto/listar} + ${producto.id}">Detalles</a>
+								<a  class="btn btn-primary" th:href="@{/producto/obtener/{id} (id=${producto.id}) }">Detalles</a>
 							</td>
 							<td>
-								<a class="btn btn-warning btn-sm" th:href="@{/producto/form} + ${producto.id}">Editar</a>
+								<a  class="btn btn-warning" th:href="@{/producto/edit/{id} (id=${producto.id}) }">Editar</a>
 							</td>
 							<td>
-								<a href="#" onclick="eliminarContacto(this)" class="btn btn-danger">Eliminar</a>
-								<form th:action="@{/eliminar/} + ${producto.id}" method="get"></form>
+								<a href="#" class="btn btn-danger" onclick="eliminarContacto(this)" th:href="@{/producto/eliminar/{id} (id=${producto.id}) }">Eliminar</a>
+								<form th:action="@{/producto/eliminar/} + ${producto.id}" method="get"></form>
 							</td>			
 						</tr>
 					</tbody>
 				</table>
+				<br>
 				<nav th:replace="productos/paginador-nav :: paginator"></nav>
 				<!----
                  -----------------------SOLUCIONAR ESTO---------------------
@@ -60,6 +61,7 @@
 			</div>
 		</div>
 	</div>
+	
 
 	<script>
 		function eliminarContacto(elemento){
@@ -70,6 +72,8 @@
 			}
 		}
 		</script>
+
+		<br>
 
 	<footer th:replace="layout/layout :: footer"></footer>
 </body>

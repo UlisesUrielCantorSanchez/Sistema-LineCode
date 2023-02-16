@@ -19,6 +19,8 @@
 	<!-- Navigation -->
 	<div th:include="index/template_usuario.html::header"></div>
 
+    <br>
+
 	<!-- Page Content -->
 	<div class="container">
 
@@ -43,7 +45,7 @@
 						</a>
 					</div>
 					<div class="col-lg-6">
-						<form th:action="@{/cart}" method="POST">
+						<form th:action="@{/productohome/cart}" method="POST">
 						<input type="hidden" th:value="${producto.id}" name="id">
 							<h2 class="card-title" th:text="${producto.nombre}"></h2>
 
@@ -54,7 +56,7 @@
 								</li>
 								<li class="list-group-item"><h6>
 										Cantidad: <input type="number" id="cantidad" name="cantidad"
-											autocomplete="off" min="1" max="5" value="1">
+											autocomplete="off" min="1" max="10" value="1">
 									</h6></li>
 							</ul>
 
