@@ -47,8 +47,12 @@ public class HomeController {
 	Orden orden = new Orden();
 
 	@GetMapping({ "/", "" })
-	public String home(Model model) {
+	public String home(Model model, HttpSession session) {
 		model.addAttribute("productos", productoService.findAll());
+		
+		//session
+		model.addAttribute("sesion", session.getAttribute("idusuario"));
+		
 		return "index/home";
 	}
 
@@ -107,14 +111,40 @@ public class HomeController {
 	@GetMapping("productohome/order")
 	public String order(Model model, HttpSession session) {
 
-		Usuario usuario = usuarioService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
+		//Usuario usuario = usuarioService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
 
 		model.addAttribute("cart", detalles);
 		model.addAttribute("orden", orden);
-		model.addAttribute("usuario", usuario);
+		//model.addAttribute("usuario", usuario);
 
 		return "index/resumenorden";
 	}
+	
+	// quitar un producto del carrito
+		@GetMapping("/delete/cart/{id}")
+		public String deleteProductoCart(@PathVariable Integer id, Model model) {
+
+			// lista nueva de prodcutos
+			List<DetalleOrden> ordenesNueva = new ArrayList<DetalleOrden>();
+
+			for (DetalleOrden detalleOrden : detalles) {
+				if (detalleOrden.getProducto().getId() != id) {
+					ordenesNueva.add(detalleOrden);
+				}
+			}
+
+			// poner la nueva lista con los productos restantes
+			detalles = ordenesNueva;
+
+			double sumaTotal = 0;
+			sumaTotal = detalles.stream().mapToDouble(dt -> dt.getTotal()).sum();
+
+			orden.setTotal(sumaTotal);
+			model.addAttribute("cart", detalles);
+			model.addAttribute("orden", orden);
+
+			return "index/carrito";
+		}
 
 	// guardar la orden
 	@GetMapping("productohome/saveOrder")
@@ -124,9 +154,9 @@ public class HomeController {
 		orden.setNumero(ordenService.generarNumeroOrden());
 
 		// usuario
-		Usuario usuario = usuarioService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
+		//Usuario usuario = usuarioService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
 
-		orden.setUsuario(usuario);
+		//orden.setUsuario(usuario);
 		ordenService.save(orden);
 
 		// guardar detalles
@@ -142,7 +172,7 @@ public class HomeController {
 		return "redirect:/";
 	}
 	
-	@PostMapping("productohome/search")
+	@PostMapping("/search")
 	public String searchProduct(@RequestParam String nombre, Model model) {
 		List<Producto> productos= productoService.findAll().stream().filter( p -> p.getNombre().contains(nombre)).collect(Collectors.toList());
 		model.addAttribute("productos", productos);		
