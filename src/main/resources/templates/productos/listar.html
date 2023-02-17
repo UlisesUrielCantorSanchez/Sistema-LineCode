@@ -11,7 +11,13 @@
 
 	<div class="py-4 ml-5 mr-5">
 		<div class="card bg-light">
-			<div class="card-header" th:text="${titulo}"></div>
+
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+				<li class="breadcrumb-item active" th:text="${titulo}"></li>
+			</ol>
+
+			<div class="card-header"></div>
 			<div class="card-body">
 				<h4 class="card-title">
 					<a th:href="@{/producto/create}" class="btn btn-primary">Agregar Producto</a>
@@ -76,5 +82,11 @@
 		<br>
 
 	<footer th:replace="layout/layout :: footer"></footer>
+	<footer class="py-5 bg-dark">
+		<div class="container">
+			<p class="m-0 text-center text-white">Sistema Line Code</p>
+		</div>
+		<!-- /.container -->
+	</footer>
 </body>
 </html>

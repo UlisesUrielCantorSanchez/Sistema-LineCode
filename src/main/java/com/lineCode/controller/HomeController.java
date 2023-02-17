@@ -47,8 +47,12 @@ public class HomeController {
 	Orden orden = new Orden();
 
 	@GetMapping({ "/", "" })
-	public String home(Model model) {
+	public String home(Model model, HttpSession session) {
 		model.addAttribute("productos", productoService.findAll());
+		
+		//session
+		model.addAttribute("sesion", session.getAttribute("idusuario"));
+		
 		return "index/home";
 	}
 
@@ -150,9 +154,9 @@ public class HomeController {
 		orden.setNumero(ordenService.generarNumeroOrden());
 
 		// usuario
-		Usuario usuario = usuarioService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
+		//Usuario usuario = usuarioService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
 
-		orden.setUsuario(usuario);
+		//orden.setUsuario(usuario);
 		ordenService.save(orden);
 
 		// guardar detalles
@@ -165,7 +169,7 @@ public class HomeController {
 		orden = new Orden();
 		detalles.clear();
 
-		return "redirect:/usuario/home";
+		return "redirect:/";
 	}
 	
 	@PostMapping("/search")

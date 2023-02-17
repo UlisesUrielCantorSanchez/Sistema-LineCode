@@ -89,8 +89,8 @@ public class ProductoController {
 			return "productos/from";
 		}
 
-		Usuario u = usuarioService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
-		producto.setUsuario(u);	
+		//Usuario u = usuarioService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
+		//producto.setUsuario(u);	
 		
 		//imagen
 		if (producto.getId()==null) { // cuando se crea un producto
