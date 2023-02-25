@@ -1,26 +1,23 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
-<head>
 <head th:replace="layout/layout :: head">
 <meta charset="utf-8">
 
-<title>Spring eCommerce</title>
+<title>Line code</title>
 
 </head>
 
 <body>
 
 	<!-- Navigation -->
-	<div th:include="index/template_usuario.html::header" th:if="${sesion==null}">	
-	</div>
+	<div th:include="usuario/template_usuario.html::header" th:if="${sesion==null}"></div>
 	
-	<div th:include="index/template_usuario.html::header-user" th:unless="${sesion==null}"> </div>
-
-    <br>
+	<div th:include="usuario/template_usuario.html::header-user" th:unless="${sesion==null}"> </div>
 
 	<!-- Container -->
 	<div class="container">
+		<br><br>
 		<!-- Page Heading/Breadcrumbs -->
 		<h1 class="mt-4 mb-3">
 			Line Code <small>Carrito</small>
@@ -53,7 +50,7 @@
 									<td th:text="${dorden.precio}"></td>
 									<td th:text="${dorden.cantidad}"></td>
 									<td th:text="${dorden.total}"></td>
-									<td><a th:href="@{/delete/cart/{id}   (id=${dorden.producto.id}) }" class="btn btn-danger">Quitar</a></td>
+									<td><a th:href="@{/productohome/delete/cart/{id}   (id=${dorden.producto.id}) }" class="btn btn-danger">Quitar</a></td>
 								</tr>
 							</tbody>
 						</table>
@@ -63,7 +60,9 @@
 						<h2 class="card-title">SUBTOTAL</h2>
 
 						<ul class="list-group">
-							<li class="list-group-item"><h5 th:text="${orden.total}"></h5></li>
+							<li class="list-group-item"><h5 th:text="${subTotal}"></h5></li>
+							<h4 class="card-title">IVA:</h4>
+							<li class="list-group-item"><h5 th:text="${IVA}"></h5></li>
 							<a th:href="@{/productohome/order}" class="btn btn-dark">Ver Orden</a>
 						</ul>
 					</div>
@@ -76,7 +75,7 @@
 	<!-- /.container -->
 
 	<!-- Footer -->
-	<div th:include="index/template_usuario.html::footer"></div>
+	<div th:include="usuario/template_usuario.html::footer"></div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

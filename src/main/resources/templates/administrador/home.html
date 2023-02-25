@@ -23,7 +23,7 @@
 
 		<!-- Jumbotron Header -->
 		<header class="jumbotron my-4">
-			<h1 class="display-3">Bienvenido al Sistema Line Code</h1>
+			<h1 class="display-3">Bienvenido al Sistema Line Code ADMIN</h1>
 			<p class="lead">Sistema de ventas</p>
 		</header>
 
@@ -38,8 +38,7 @@
 						<p class="card-text" th:text="${producto.nombre}"></p>
 					</div>
 					<div class="card-footer">
-						<a th:href="@{/productohome/{id}  (id=${producto.id})  }" class="btn btn-success">Ver
-							producto</a>
+						<a th:href="@{/productohome/{id}  (id=${producto.id})  }" class="btn btn-success">Ver producto</a>
 					</div>
 				</div>
 			</div>
@@ -47,6 +46,8 @@
 
 		</div>
 		<!-- /.row -->
+		<br>
+        <nav th:replace="productos/paginador-nav :: paginator"></nav>
 
 	</div>
 	<!-- /.container -->

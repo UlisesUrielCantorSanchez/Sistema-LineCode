@@ -20,17 +20,21 @@
 
 	<!-- Page Content -->
 	<div class="container">
-
+		<br><br>
 
 		<!-- Page Heading/Breadcrumbs -->
 		<h1 class="mt-4 mb-3">
-			Spring eCommerce <small>Ordenes</small>
+			Sistema de ventas <small>Ordenes</small>
 		</h1>
 
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
 			<li class="breadcrumb-item active">Ordenes</li>
 		</ol>
+
+		<a th:href="@{/administrador/ordenes/exportarExcel}" class="btn btn-success">Exportar a Excel</a>
+
+		<br><br>
 
 		<!-- Blog Post -->
 		<div class="card mb-4">
@@ -44,6 +48,7 @@
 									<th scope="col">Fecha</th>
 									<th scope="col">Valor</th>
 									<th scope="col">Acción</th>
+									<th sec:authorize="hasRole('ADMIN')" scope="col">Eliminar</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -51,8 +56,13 @@
 									<td th:text="${orden.numero}"></td>
 									<td th:text="${orden.fechaCreacion}"></td>
 									<td th:text="${orden.total}"></td>
-									<td><a th:href="@{/administrador/detalle/{id} (id=${orden.id}) }" class="btn btn-success">Ver
-											Detalle</a></td>
+									<td>
+										<a th:href="@{/administrador/detalle/{id} (id=${orden.id}) }" class="btn btn-success">Ver Detalle</a>
+									</td>
+									<td sec:authorize="hasRole('ADMIN')">
+										<a href="#" class="btn btn-danger" onclick="eliminarOrden(this)">Eliminar</a>
+												<form th:action="@{/administrador/delete/} + ${orden.id}" method="get"></form>
+									</td>			
 								</tr>
 							</tbody>
 						</table>
@@ -60,8 +70,19 @@
 				</div>
 			</div>
 		</div>
+		<nav th:replace="productos/paginador-nav :: paginator"></nav>
 	</div>
 	<!-- /.container -->
+
+	<script>
+		function eliminarOrden(elemento){
+			var ok = confirm('¿Estas seguro de eliminar la orden?');
+			
+			if(ok){
+				elemento.nextElementSibling.submit();
+			}
+		}
+		</script>
 
 	<!-- Footer -->
 	<div th:include="administrador/template_admin.html::footer"></div>

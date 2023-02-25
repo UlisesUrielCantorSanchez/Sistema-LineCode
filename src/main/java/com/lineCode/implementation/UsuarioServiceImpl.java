@@ -36,6 +36,11 @@ public class UsuarioServiceImpl implements IUsuarioService{
 		return usuarioRepository.findAll();
 	}
 
+	@Override
+	public void delete(Integer id) {
+		usuarioRepository.deleteById(id);
+	}
+
 	
 
 }

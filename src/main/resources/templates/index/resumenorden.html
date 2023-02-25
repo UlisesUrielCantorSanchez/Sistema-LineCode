@@ -1,23 +1,17 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-<meta charset="utf-8">
-<title>Spring eCommerce</title>
-
-<head th:replace="layout/layout :: head"></head>
-</head>
+<head th:replace="layout/layout :: head">
 
 <body>
 
   <!-- Navigation -->
- <div th:include="index/template_usuario.html::header"></div>
-
- <br>
+ <div th:include="usuario/template_usuario.html::header"></div>
 
     <!-- Page Content -->
     <div class="container">
       <!-- Page Heading/Breadcrumbs -->
+      <br><br>
       <h1 class="mt-4 mb-3">
         Sistema Line Code <small>Resumen de la orden</small>
       </h1>
@@ -34,14 +28,15 @@
            <div class="col-lg-9">
              <div class="card-body">
               
-                <!--
+              
                   <h5 class="card-title">
                 DATOS ORDEN
               </h5>
               <h6 th:text=" 'Nombre: '+ ${usuario.nombre}"> </h6>
               <h6 th:text="'Correo: '+  ${usuario.email}"></h6>
               <h6 th:text="'Dirección: '+ ${usuario.direccion}" ></h6>
-              --->
+              <h6 th:text="'Tipo de usuario: '+ ${usuario.tipo}" ></h6>
+            
               <h5 class="card-title">
                 PRODUCTOS
               </h5>
@@ -86,7 +81,7 @@
   <!-- /.container -->
 
   <!-- Footer -->
-  <div th:include="index/template_usuario.html::footer">
+  <div th:include="usuario/template_usuario.html::footer">
 	</div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

@@ -1,16 +1,7 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>Spring eCommerce</title>
-
-  <head th:replace="layout/layout :: head"></head>
+<head th:replace="layout/layout :: head"></head>
 
 
 </head>
@@ -22,15 +13,15 @@
 <br>
 <!-- Page Content -->
 <div class="container">
-
+   <br><br>
 
   <!-- Page Heading/Breadcrumbs -->
   <h1 class="mt-4 mb-3">
-    Line Code <small>Usuarios</small>
+    Sistema de ventas <small>Usuarios</small>
   </h1>
 
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+    <li class="breadcrumb-item"><a th:href="@{/administrador}">Home</a></li>
     <li class="breadcrumb-item active">Ver Usuarios</li>
   </ol>
   <h2>Usuarios</h2>
@@ -40,6 +31,7 @@
         <th scope="col">Nombre</th>
         <th scope="col">Email</th>
         <th scope="col">Dirección</th>
+        <th scope="col">Eliminar</th>
       </tr>
     </thead>
     <tbody>
@@ -47,6 +39,10 @@
         <td th:text="${usuario.nombre}"></td>
         <td th:text="${usuario.email}"></td>
         <td th:text="${usuario.direccion}"></td>
+        <td>
+          <a href="#" class="btn btn-danger" onclick="eliminarUsuario(this)">Eliminar</a>
+          <form th:action="@{/administrador/usuario/delete/} + ${usuario.id}" method="get"></form>
+        </td>	
       </tr>       
     </tbody>
   </table>
@@ -56,6 +52,17 @@
 
 <!-- Footer -->
 <div th:include="administrador/template_admin.html::footer"></div>
+
+<script>
+  function eliminarUsuario(elemento){
+    var ok = confirm('¿Estas seguro de eliminar el usuario?');
+    
+    if(ok){
+      elemento.nextElementSibling.submit();
+    }
+  }
+  </script>
+
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

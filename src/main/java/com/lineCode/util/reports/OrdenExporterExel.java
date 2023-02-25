@@ -13,20 +13,20 @@ import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.lineCode.model.Producto;
+import com.lineCode.model.Orden;
 
 
-public class ProductoExporterExel {
+public class OrdenExporterExel {
 	
 	private XSSFWorkbook libro;
 	private XSSFSheet hoja;
 
-	private List<Producto> listaProductos;
+	private List<Orden> listaOrdenes;
 
-	public ProductoExporterExel(List<Producto> listaProductos) {
-		this.listaProductos = listaProductos;
+	public OrdenExporterExel(List<Orden> listaOrdenes) {
+		this.listaOrdenes = listaOrdenes;
 		libro = new XSSFWorkbook();
-		hoja = libro.createSheet("Productos");
+		hoja = libro.createSheet("Ordenes");
 	}
 
 	private void escribirCabeceraDeTabla() {
@@ -39,24 +39,25 @@ public class ProductoExporterExel {
 		estilo.setFont(fuente);
 		
 		Cell celda = fila.createCell(0);
-		celda.setCellValue("ID");
+		celda.setCellValue("ID Orden");
 		celda.setCellStyle(estilo);
 		
 		celda = fila.createCell(1);
-		celda.setCellValue("Nombre");
+		celda.setCellValue("Numero");
 		celda.setCellStyle(estilo);
 		
 		celda = fila.createCell(2);
-		celda.setCellValue("Canidad");
+		celda.setCellValue("Fecha de Creacion");
 		celda.setCellStyle(estilo);
 		
 		celda = fila.createCell(3);
-		celda.setCellValue("Precio");
+		celda.setCellValue("Total");
 		celda.setCellStyle(estilo);
 		
 		celda = fila.createCell(4);
-		celda.setCellValue("Descripcion");
+		celda.setCellValue("Usuario");
 		celda.setCellStyle(estilo);
+		
 		
 	}
 	
@@ -68,31 +69,31 @@ public class ProductoExporterExel {
 		fuente.setFontHeight(14);
 		estilo.setFont(fuente);
 		
-		for(Producto producto : listaProductos) {
+		for(Orden orden : listaOrdenes) {
 			Row fila = hoja.createRow(nueroFilas ++);
 			
 			Cell celda = fila.createCell(0);
-			celda.setCellValue(producto.getId());
+			celda.setCellValue(orden.getId());
 			hoja.autoSizeColumn(0);
 			celda.setCellStyle(estilo);
 			
 			celda = fila.createCell(1);
-			celda.setCellValue(producto.getNombre());
+			celda.setCellValue(orden.getNumero());
 			hoja.autoSizeColumn(1);
 			celda.setCellStyle(estilo);
 			
 			celda = fila.createCell(2);
-			celda.setCellValue(producto.getCantidad());
+			celda.setCellValue(orden.getFechaCreacion().toString());
 			hoja.autoSizeColumn(2);
 			celda.setCellStyle(estilo);
 			
 			celda = fila.createCell(3);
-			celda.setCellValue(producto.getPrecio());
+			celda.setCellValue(orden.getTotal());
 			hoja.autoSizeColumn(3);
 			celda.setCellStyle(estilo);
 			
 			celda = fila.createCell(4);
-			celda.setCellValue(producto.getDescripcion());
+			celda.setCellValue(orden.getUsuario().getNombre());
 			hoja.autoSizeColumn(4);
 			celda.setCellStyle(estilo);
 			

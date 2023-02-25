@@ -7,28 +7,23 @@
 </head>
 <body>
 
-	<div sec:authorize="hasRole('ADMIN')" th:include="administrador/template_admin.html::header"></div>
-	<div sec:authorize="hasRole('USER')" th:include="usuario/template_usuario.html::header-user"></div>
-
+	<header th:replace="layout/layout :: header"></header>
 
 	<div class="py-4 ml-5 mr-5">
-		<br><br>
-		<h1 class="mt-4 mb-3">
-			Sistema de ventas <small>Productos</small>
-		  </h1>
 		<div class="card bg-light">
 
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-				<li class="breadcrumb-item active" th:text="${titulo}"></li>
+                <li class="breadcrumb-item"><a th:href="@{/producto/listar}">Lista de productos</a></li>
+                <li class="breadcrumb-item active">Filtro de productos</li>
 			</ol>
 
 			<div class="card-header"></div>
 			<div class="card-body">
 				<h4 class="card-title">
 					<a th:href="@{/producto/create}" class="btn btn-primary">Agregar Producto</a>
-					<a sec:authorize="hasRole('ADMIN')" th:href="@{/producto/exportarPDF}" class="btn btn-secondary">Exportar a PDF</a>
-					<a sec:authorize="hasRole('ADMIN')" th:href="@{/producto/exportarExcel}" class="btn btn-success">Exportar a Excel</a>
+					<a th:href="@{/producto/exportarPDF}" class="btn btn-secondary">Exportar a PDF</a>
+					<a th:href="@{/producto/exportarExcel}" class="btn btn-success">Exportar a Excel</a>
 				</h4>
 				
 				<table class="table table-striped">
@@ -38,10 +33,10 @@
 							<th>Nombre</th>
 							<th>Cantidad</th>
 							<th>Precio</th>
-							<th>Descripción</th>
+							<th>descripcion</th>
 							<th>Detalles</th>
-							<th sec:authorize="hasRole('ADMIN')">Editar</th>
-							<th sec:authorize="hasRole('ADMIN')">Eliminar</th>
+							<th>Editar</th>
+							<th>Eliminar</th>
 							
 						</tr>
 					</thead>
@@ -55,18 +50,18 @@
 							<td>
 								<a  class="btn btn-primary" th:href="@{/producto/obtener/{id} (id=${producto.id}) }">Detalles</a>
 							</td>
-							<td sec:authorize="hasRole('ADMIN')">
+							<td>
 								<a  class="btn btn-warning" th:href="@{/producto/edit/{id} (id=${producto.id}) }">Editar</a>
 							</td>
-							<td sec:authorize="hasRole('ADMIN')">
-								<a href="#" class="btn btn-danger" onclick="eliminarProducto(this)">Eliminar</a>
-								<form th:action="@{/producto/delete/} + ${producto.id}" method="get"></form>
+							<td>
+								<a href="#" class="btn btn-danger" onclick="eliminarContacto(this)" th:href="@{/producto/eliminar/{id} (id=${producto.id}) }">Eliminar</a>
+								<form th:action="@{/producto/eliminar/} + ${producto.id}" method="get"></form>
 							</td>			
 						</tr>
 					</tbody>
 				</table>
 				<br>
-				<nav th:replace="productos/paginador-nav :: paginator"></nav>
+        
 				
 			</div>
 		</div>
@@ -74,7 +69,7 @@
 	
 
 	<script>
-		function eliminarProducto(elemento){
+		function eliminarContacto(elemento){
 			var ok = confirm('¿Estas seguro de eliminar el producto?');
 			
 			if(ok){
