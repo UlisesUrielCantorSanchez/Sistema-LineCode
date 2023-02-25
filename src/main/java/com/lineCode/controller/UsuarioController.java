@@ -30,7 +30,6 @@ public class UsuarioController {
 	
 	BCryptPasswordEncoder passEncode= new BCryptPasswordEncoder();
 	
-	
 	// /usuario/registro
 	@GetMapping("/usuario/registro")
 	public String create() {
@@ -50,11 +49,9 @@ public class UsuarioController {
 		return "usuario/login";
 	}
 	
-	@PostMapping("/usuario/acceder")
+	@GetMapping("/usuario/acceder")
 	public String acceder(Usuario usuario, HttpSession session, RedirectAttributes redirect) {
-		
-		Optional<Usuario> user=usuarioService.findByEmail(usuario.getEmail());
-		//logger.info("Usuario de db: {}", user.get());
+		Optional<Usuario> user=usuarioService.findById(Integer.parseInt(session.getAttribute("idusuario").toString()));
 		
 		if (user.isPresent()) {
 			session.setAttribute("idusuario", user.get().getId());
@@ -80,7 +77,7 @@ public class UsuarioController {
 		
 		model.addAttribute("ordenes", ordenes);
 		
-		return "usuario/compras";
+		return "index/compras";
 	}
 	
 	@GetMapping("/usuario/detalle/{id}")
@@ -91,13 +88,13 @@ public class UsuarioController {
 		
 		//session
 		model.addAttribute("sesion", session.getAttribute("idusuario"));
-		return "usuario/detallecompra";
+		return "index/detallecompra";
 	}
 	
 	@GetMapping("/usuario/cerrar")
 	public String cerrarSesion( HttpSession session ) {
 		session.removeAttribute("idusuario");
-		return "redirect:/usuario/registro";
+		return "redirect:/";
 	}
 
 }

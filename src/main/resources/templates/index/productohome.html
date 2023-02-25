@@ -2,22 +2,11 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
-<head>
+	<head th:replace="layout/layout :: head">
 
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-
-<title>Spring eCommerce</title>
-<head th:replace="layout/layout :: head"></head>
-</head>
-
-<body>
-
-	<!-- Navigation -->
-	<div th:include="index/template_usuario.html::header"></div>
+	<div sec:authorize="hasRole('ADMIN')" th:include="administrador/template_admin.html::header"></div>
+	<div sec:authorize="hasRole('USER')" th:include="usuario/template_usuario.html::header"></div>
+	
 
     <br>
 
@@ -59,11 +48,11 @@
 											autocomplete="off" min="1" max="10" value="1">
 									</h6></li>
 							</ul>
-
-
-							<button type="submit" class="btn btn-dark">Añadir al
-								carrito</button>
-
+							
+							<div class="container">
+								<button type="submit" class="btn btn-dark">Añadir al carrito</button>
+							</div>
+								
 						</form>
 					</div>
 				</div>
@@ -75,7 +64,7 @@
 	<!-- /.container -->
 
 	<!-- Footer -->
-	<div th:include="index/template_usuario.html::footer">
+	<div th:include="usuario/template_usuario.html::footer">
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

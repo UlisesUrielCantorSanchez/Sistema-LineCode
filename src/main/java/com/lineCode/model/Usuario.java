@@ -2,6 +2,7 @@ package com.lineCode.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,10 +24,10 @@ public class Usuario {
 	private String tipo;
 	private String password;
 	
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private List<Producto> productos;
 	
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private List<Orden> ordenes;
 	
 	public Usuario() {

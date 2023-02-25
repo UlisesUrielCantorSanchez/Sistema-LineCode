@@ -5,7 +5,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lineCode.model.Orden;
 import com.lineCode.model.Usuario;
@@ -66,6 +69,19 @@ public class OrdenServiceImpl implements IOrdenService{
 	@Override
 	public Optional<Orden> findById(Integer id) {
 		return ordenRepository.findById(id);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Page<Orden> findAll(Pageable pageable) {
+		return ordenRepository.findAll(pageable);
+		
+	}
+
+	@Override
+	public void delete(Integer id) {
+		ordenRepository.deleteById(id);
+		
 	}
 
 }

@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -59,7 +60,7 @@ public class ProductoController {
 		}
 
 		modelo.put("producto", producto);
-		modelo.put("titulo", "Detalles del empleado " + producto.getNombre());
+		modelo.put("titulo", "Detalles del Producto " + producto.getNombre());
 		return "productos/mostar";
 	}
 
@@ -89,8 +90,8 @@ public class ProductoController {
 			return "productos/from";
 		}
 
-		//Usuario u = usuarioService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
-		//producto.setUsuario(u);	
+		Usuario u = usuarioService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
+		producto.setUsuario(u);	
 		
 		//imagen
 		if (producto.getId()==null) { // cuando se crea un producto
@@ -121,8 +122,8 @@ public class ProductoController {
 		p=productoService.get(producto.getId()).get();
 		
 		if (file.isEmpty()) { // editamos el producto pero no cambiamos la imagem
-			
 			producto.setImagen(p.getImagen());
+			
 		}else {// cuando se edita tbn la imagen			
 			//eliminar cuando no sea la imagen por defecto
 			if (!p.getImagen().equals("default.jpg")) {
@@ -137,10 +138,9 @@ public class ProductoController {
 	}
 	
 	
-	@GetMapping("/producto/eliminar/{id}")
+	@GetMapping("/producto/delete/{id}")
 	public String eliminarProducto(@PathVariable(value = "id") Integer id,RedirectAttributes flash) {
 		Producto producto = new Producto();
-		//producto = productoService.findOne(id);
 		producto = productoService.get(id).get();
 		
 		//eliminar cuando no sea la imagen por defecto
@@ -152,6 +152,14 @@ public class ProductoController {
 			flash.addFlashAttribute("success", "Empleado eliminado con exito");
 		}
 		return "redirect:/producto/listar";
+	}
+	
+	@PostMapping("producto/search")
+	public String searchProduct(@RequestParam String nombre, Model model) {
+		List<Producto> productos= productoService.findAll().stream().filter( p -> p.getNombre().contains(nombre)).collect(Collectors.toList());
+		model.addAttribute("productos", productos);		
+		return "productos/producto";
+		
 	}
 	
 	@GetMapping("/producto/exportarPDF")

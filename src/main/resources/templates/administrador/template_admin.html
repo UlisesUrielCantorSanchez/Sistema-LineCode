@@ -2,14 +2,14 @@
 <div th:fragment="header">
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		<div class="container">
-			<a class="navbar-brand" th:href="@{/administrador}">Spring eCommerce</a>
+			<a class="navbar-brand" th:href="@{/administrador}">Line Code</a>
 
-			<form class="form-inline my-2 my-lg-0" method="post" th:action="@{/search}">
+				<form class="form-inline my-2 my-lg-0" method="post" th:action="@{/search}">
 					<input class="form-control mr-sm-2" type="search"
 						placeholder="Buscar" aria-label="Search" name="nombre"
 						autocomplete="off">
 					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-				</form>
+				</form>	
 
 
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -22,7 +22,7 @@
 					<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#"
 							id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false"> ADMIN </a>
+							aria-haspopup="true" aria-expanded="false"> ADMIN: [[${#httpServletRequest.remoteUser}]] </a>
 							
 							<div class="dropdown-menu"
 								aria-labelledby="navbarDropdownMenuLink">

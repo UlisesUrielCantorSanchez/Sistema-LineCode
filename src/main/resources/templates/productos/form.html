@@ -5,11 +5,15 @@
 </head>
 <body>
 
-	<header th:replace="layout/layout :: header"></header>
+	<div th:include="administrador/template_admin.html::header" ></div>
 	
 	<br>
 	
 	<div class="container">
+		<br>
+		<h1 class="mt-4 mb-3">
+			Sistema de ventas <small>Agregar producto</small>
+		  </h1>
 	  
 	           <h1 class="text-center" th:text="${titulo}"></h1>
 	           <div class="card-body">

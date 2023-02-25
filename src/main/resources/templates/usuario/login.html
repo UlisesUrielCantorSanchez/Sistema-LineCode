@@ -1,15 +1,8 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>Spring eCommerce</title>
-  <head th:replace="layout/layout :: head">
+<head th:replace="layout/layout :: head">
+  
 </head>
 
 <body>
@@ -33,6 +26,8 @@
     </div>
   </nav>
 
+  <br> <br> <br>
+
 
   <!-- Page Content -->
   <div class="container">
@@ -43,7 +38,7 @@
         </div>
         <div class="col-md-8">
           <div class="card-body">
-            <h2>Ingresar</h2>
+            <h2>Login</h2>
 
           </div>
         </div>
@@ -51,10 +46,10 @@
     </div>
 
     
-    <form  th:action="@{/usuario/acceder}" method="post">
+    <form  th:action="@{/usuario/login}" method="post">
       <div class="form-group">
         <label for="email"> Email:  </label>      
-        <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese su email" required autocomplete="off"> 
+        <input type="email" class="form-control" id="username" name="username" placeholder="Ingrese su email" required autocomplete="off"> 
 
       </div>
 
@@ -69,10 +64,15 @@
         </div>      
       </div>    
     </form>
+    
+    <br>
+    <br>
+    <br>
     <a th:href="@{/usuario/registro}" class="card-link">Si aún no tiene cuenta aqui puede registrarse</a>
+    
   </div>
   <!-- /.container -->
-
+  <br>
   <!-- Footer -->
  <div th:include="usuario/template_usuario.html::footer"></div>
 
